@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Dummy product data
 const dummyProduct = {
@@ -32,28 +33,99 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <div className="barcode-container">
-                <input
-                    type="text"
-                    placeholder="Enter barcode"
-                    value={barcode}
-                    onChange={(e) => setBarcode(e.target.value)}
-                    onKeyPress={handleEnter}
-                />
-            </div>
-            {product && (
-                <div className="product-details">
-                    <h2>{product.title}</h2>
-                    <p>Regular Price: {product.regular_price}</p>
-                    <p>Sale Price: {product.sale_price}</p>
-                    <p>Stock Status: {product.stock_status}</p>
-                    <p>Stock Quantity: {product.stock_quantity}</p>
-                    <img src={product.thumbnail_url} alt={product.title} />
-                </div>
-            )}
+    <div className="App">
+        <div className="barcode-container">
+            <div className="mb-3 row">
+            <div className="col-md-2">
+                           <label htmlFor="regularPrice" className="form-label"><strong>Scan Product Barcode</strong></label>
+             </div>
+              <div className="col-md-4"> 
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter barcode"
+                        value={barcode}
+                        onChange={(e) => setBarcode(e.target.value)}
+                        onKeyPress={handleEnter}
+                    />
+             </div>
+            </div>      
+
         </div>
-    );
+        {product && (
+            <div className="product-details mt-4 row">
+                <div className="col-md-6">
+                    <img src={product.thumbnail_url} alt={product.title} className="img-fluid" />
+                </div>
+                <div className="col-md-6">
+                    <h2>{product.title}</h2>
+                    <div className="mb-3 row">
+                        <div className="col-md-8 bar_labels">
+                           <label htmlFor="regularPrice" className="form-label"><strong>Regular Price:</strong></label>
+                        </div>
+
+                        <div className="col-md-4 bar_inputs">
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="regularPrice"
+                                value={product.regular_price}
+                                readOnly
+                            />
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                      <div className="col-md-8 bar_labels">
+                        <label htmlFor="salePrice" className="form-label"><strong>Sale Price:</strong></label>
+                      </div>
+                      <div className="col-md-4 bar_inputs">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="salePrice"
+                            value={product.sale_price}
+                            readOnly
+                        />
+                       </div> 
+                    </div>
+                    <div className="mb-3 row">
+                       <div className="col-md-8 bar_labels">
+                         <label htmlFor="stockStatus" className="form-label"><strong>Stock Status:</strong></label>
+                       </div>
+
+                       <div className="col-md-4 bar_select">
+                        <select
+                            className="form-select"
+                            id="stockStatus"
+                            value={product.stock_status}
+                            disabled
+                        >
+                            <option>{product.stock_status}</option>
+                        </select>
+                      </div>  
+                    </div>
+                    <div className="mb-3 row">
+                        
+                       <div className="col-md-8 bar_labels">
+                        <label htmlFor="stockQuantity" className="form-label"><strong>Stock Quantity:</strong></label>
+                       </div>
+
+                       <div className="col-md-4 bar_inputs"> 
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="stockQuantity"
+                            value={product.stock_quantity}
+                            readOnly
+                        />
+                       </div>  
+                    </div>
+                </div>
+            </div>
+        )}
+    </div>
+);
+
 }
 
 export default App;
