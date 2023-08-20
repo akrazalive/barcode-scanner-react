@@ -73,6 +73,33 @@ img {
     cursor: not-allowed;
 }
 
+.product-item {
+    border: 1px solid #ddd;
+    padding: 3px 13px;
+    /* margin-bottom: 10px; */
+}
+
+.product-content {
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchProductContainer {
+    position: absolute;
+    background: white;
+    z-index: 546456;
+}
 @media (max-width: 767px) {
     .product-details {
         max-width: 100%;

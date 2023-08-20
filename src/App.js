@@ -13,7 +13,9 @@ const dummyProduct = {
 
 function App() {
     const [barcode, setBarcode] = useState('');
+    const [search, setSearch] = useState('');
     const [product, setProduct] = useState(null);
+    const [productss, setProductss] = useState([]);
 
     const handleEnter = async (e) => {
         if (e.key === 'Enter') {
@@ -32,23 +34,71 @@ function App() {
         }
     };
 
+   
+
+    const handleSearchEnter = async (e) => {
+       // if (e.key === 'Enter') {
+            try {
+                const response = await fetch(`https://rapidfiller.com/wp-json/searchquery/v1/get-product/?search=${search}`);
+                const data = await response.json();
+                setProductss(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+       // }
+    };
+
+    const handleProductClick = (product) => {
+        console.log(product);
+        setProduct(product);
+        setProductss([]);
+    };
+
     return (
     <div className="App">
         <div className="barcode-container">
             <div className="mb-3 row">
-            <div className="col-md-2">
-                           <label htmlFor="regularPrice" className="form-label"><strong>Scan Product Barcode</strong></label>
-             </div>
-              <div className="col-md-4"> 
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter barcode"
-                        value={barcode}
-                        onChange={(e) => setBarcode(e.target.value)}
-                        onKeyPress={handleEnter}
-                    />
-             </div>
+                <div className="col-md-2 col-sm-12">
+                            <label htmlFor="regularPrice" className="form-label"><strong>Scan Product Barcode</strong></label>
+                </div>
+                <div className="col-md-2 col-sm-12"> 
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter barcode"
+                            value={barcode}
+                            onChange={(e) => setBarcode(e.target.value)}
+                            onKeyPress={handleEnter}
+                        />
+                </div>
+                
+                <div className="col-md-2 col-sm-12">
+                            <label htmlFor="regularPrice" className="form-label"><strong>Search Products</strong></label>
+                </div>
+                <div className="col-md-5 col-sm-12"> 
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Product ID | Name"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            onKeyPress={handleSearchEnter}
+                        />
+                          {productss.length > 0 && (
+                            <div className='searchProductContainer'>
+                                {productss.map(product => (
+                                    <div key={product.product_id} className="product-item" onClick={() => handleProductClick(product)}>
+                                        <div className="product-content">
+                                            <img src={product.product_image} alt={product.product_name} className="product-image" />
+                                            <div className="product-info">
+                                                <p>{product.title}  ID: {product.product_id}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                          )}
+                </div>
             </div>      
 
         </div>
