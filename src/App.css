@@ -35,13 +35,48 @@ img {
     font-size: 19px;
 }
 
-.bar_labels {
-    background: darkslategray;
-    color: ghostwhite;
-    font-size: 20px;
-    text-align: right;
+.bar_labelss {
+  /*  background: darkslategray;
+    color: ghostwhite;  */
+    font-size: 13px;
+    text-align: left;
 }
 
 .bar_inputs input, .bar_select select {
     border: 1px solid #a334fa;
 }
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: not-allowed;
+    color: black; /* Checkbox label color */
+}
+
+.checkbox-input {
+    margin-right: 5px;
+    transform: scale(0.8); /* Adjust the scale for checkbox size */
+}
+
+.checkbox-text {
+    margin-left: 5px; /* Adjust the spacing between checkbox and label */
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Add custom styles to your liking */
+.form-control[disabled] {
+    background-color: #f8f9fa; /* Disabled textarea background color */
+    color: #6c757d; /* Disabled textarea text color */
+    border-color: #d1d3e2; /* Disabled textarea border color */
+    cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+    .product-details {
+        max-width: 100%;
+    }
+}
+
+
