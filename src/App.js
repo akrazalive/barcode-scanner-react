@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CreateOrder from './CreateOrder';
 
 // Dummy product data
 const dummyProduct = {
@@ -16,6 +17,7 @@ function App() {
     const [search, setSearch] = useState('');
     const [product, setProduct] = useState(null);
     const [productss, setProductss] = useState([]);
+    const [orderComponent, setOrderComponent] = useState(false);
 
     const handleEnter = async (e) => {
         if (e.key === 'Enter') {
@@ -25,6 +27,7 @@ function App() {
                 console.log(data);   
                 if (response.ok) {
                     setProduct(data);
+                    setOrderComponent(false);
                 } else {
                     console.error('API error:', data.message);
                 }
@@ -52,7 +55,15 @@ function App() {
         console.log(product);
         setProduct(product);
         setProductss([]);
+        setOrderComponent(false);
+
     };
+
+
+    const loadOrderComponent = () => {
+      setOrderComponent(true);
+      setProduct(null);
+    }; 
 
     return (
     <div className="App">
@@ -75,7 +86,7 @@ function App() {
                 <div className="col-md-2 col-sm-12">
                             <label htmlFor="regularPrice" className="form-label"><strong>Search Products</strong></label>
                 </div>
-                <div className="col-md-5 col-sm-12"> 
+                <div className="col-md-4 col-sm-12"> 
                         <input
                             type="text"
                             className="form-control"
@@ -99,9 +110,13 @@ function App() {
                             </div>
                           )}
                 </div>
+                <div className="col-md-2">
+                   <input className="form-control btn btn-sm btn-success" onClick={()=>loadOrderComponent()} value="Generate New Order" />
+                </div>
             </div>      
 
         </div>
+        {orderComponent && <CreateOrder />}
         {product && (
             <div className="product-details mt-4 row">
                 <div className="col-md-4">
